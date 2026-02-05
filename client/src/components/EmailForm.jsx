@@ -9,7 +9,8 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
     additionalContext: '',
     tone: 'conversational',
     contactRole: 'iro',
-    length: 'standard'
+    length: 'standard',
+    relationship: 'cold'
   });
 
   const handleChange = (e) => {
@@ -116,19 +117,35 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
           </div>
         </div>
 
-        <div className="form-group compact">
-          <label htmlFor="length">Length</label>
-          <select
-            id="length"
-            name="length"
-            value={formData.length}
-            onChange={handleChange}
-            disabled={isLoading}
-          >
-            <option value="standard">Standard</option>
-            <option value="brief">Brief</option>
-            <option value="detailed">Detailed</option>
-          </select>
+        <div className="form-row">
+          <div className="form-group compact">
+            <label htmlFor="length">Length</label>
+            <select
+              id="length"
+              name="length"
+              value={formData.length}
+              onChange={handleChange}
+              disabled={isLoading}
+            >
+              <option value="standard">Standard</option>
+              <option value="brief">Brief</option>
+              <option value="detailed">Detailed</option>
+            </select>
+          </div>
+
+          <div className="form-group compact">
+            <label htmlFor="relationship">Relationship</label>
+            <select
+              id="relationship"
+              name="relationship"
+              value={formData.relationship}
+              onChange={handleChange}
+              disabled={isLoading}
+            >
+              <option value="cold">Cold Outreach</option>
+              <option value="warm">Existing Relationship</option>
+            </select>
+          </div>
         </div>
 
         <div className="form-group compact">

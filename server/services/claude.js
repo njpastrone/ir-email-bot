@@ -54,7 +54,7 @@ not closing a sale.
 </context>
 
 <task>
-Write a cold outreach email to {{contactName}} at {{companyName}}.
+Write an email to {{contactName}} at {{companyName}}.
 
 1. Review the company research below
 2. Identify 2-3 valuation-relevant themes investors are focused on
@@ -67,6 +67,10 @@ Write a cold outreach email to {{contactName}} at {{companyName}}.
 </company_research>
 
 {{additionalContext}}
+
+<relationship_context>
+{{relationshipContext}}
+</relationship_context>
 
 <recipient_context>
 {{roleContext}}
@@ -211,6 +215,15 @@ const LENGTH_MODIFIERS = {
   detailed: 'You may extend to 120-150 words with more specific news references.'
 };
 
+const RELATIONSHIP_MODIFIERS = {
+  cold: `This is a first-time outreach to someone you have never met or spoken with.
+Open paragraph 1 directly with the news reference. Lead with the specific article you noticed, because proving you did research is what separates this from the 50+ templated emails they receive daily.
+The reader should feel this email was prompted by something specific you read, with no prior relationship assumed.`,
+  warm: `You have an existing relationship with the recipient — you've met, spoken, or worked together before.
+After the "Hi [Name]," greeting, open paragraph 1 with a brief warm note (e.g., "Hope you've been well" or "It's been a while"), then transition into the news reference. Keep the warm opener to one short clause — busy executives appreciate brevity, and a quick personal touch is more genuine than a long reconnection preamble.
+For paragraph 3, frame the CTA as reconnecting: "Would love to catch up" or "Happy to reconnect over a quick call this week or next." The ask should feel natural between people who already know each other.`
+};
+
 export function getPromptInfo() {
   return {
     basePrompt: BASE_PROMPT,
@@ -218,6 +231,7 @@ export function getPromptInfo() {
     toneModifiers: TONE_MODIFIERS,
     roleContext: ROLE_CONTEXT,
     lengthModifiers: LENGTH_MODIFIERS,
+    relationshipModifiers: RELATIONSHIP_MODIFIERS,
     dynamicInputs: [
       { name: 'companyName', description: 'The target company name or ticker' },
       { name: 'contactName', description: 'The recipient\'s name' },
@@ -239,11 +253,13 @@ export async function generateEmail({
   tone = 'conversational',
   contactRole = 'iro',
   length = 'standard',
+  relationship = 'cold',
   useLegacyPrompt = false
 }) {
   const toneInstruction = TONE_MODIFIERS[tone] || TONE_MODIFIERS.conversational;
   const roleContext = ROLE_CONTEXT[contactRole] || ROLE_CONTEXT.iro;
   const lengthInstruction = LENGTH_MODIFIERS[length] || LENGTH_MODIFIERS.standard;
+  const relationshipContext = RELATIONSHIP_MODIFIERS[relationship] || RELATIONSHIP_MODIFIERS.cold;
 
   let prompt;
 
@@ -281,6 +297,7 @@ Generate the email now.`;
       .replace(/\{\{newsContext\}\}/g, newsContext)
       .replace(/\{\{additionalContext\}\}/g, additionalContextBlock)
       .replace(/\{\{roleContext\}\}/g, roleContext)
+      .replace(/\{\{relationshipContext\}\}/g, relationshipContext)
       .replace(/\{\{toneInstruction\}\}/g, toneInstruction)
       .replace(/\{\{lengthInstruction\}\}/g, lengthInstruction);
   }
