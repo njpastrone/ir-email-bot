@@ -1,12 +1,12 @@
-# IR Email Bot
+# Signal
 
 ## Project Overview
 
-A simple email drafting tool for IR (Investor Relations) consultants to prospect IROs (Investor Relations Officers) and senior executives at publicly traded companies. The tool generates personalized cold outreach emails based on recent company news and market developments.
+A news-driven email drafting tool for IR (Investor Relations) consultants to prospect IROs (Investor Relations Officers) and senior executives at publicly traded companies. The tool generates personalized cold outreach emails based on recent company news and market developments.
 
 ## Target Users
 
-**Primary User**: IR consultants at firms like Rivel Research Group who need to prospect potential clients
+**Primary User**: IR consultants who need to prospect potential clients
 
 **Email Recipients**:
 - IROs (Investor Relations Officers)
@@ -36,7 +36,7 @@ First, identify the company's most recent market-facing challenges by referencin
 Then, write a short, casual, human-sounding email that follows this structure:
 
 - Open by noting that you have recently read a few articles about the company and briefly summarize the market perception or investor concern implied by those articles.
-- Position your firm as specializing in investor perception research and expectation management, including understanding what investors truly believe, identifying gaps between management intent and market interpretation, and helping leadership teams proactively address those gaps. Base this description on Rivel's positioning, without sounding like marketing copy.
+- Position your firm as specializing in investor perception research and expectation management, including understanding what investors truly believe, identifying gaps between management intent and market interpretation, and helping leadership teams proactively address those gaps. Keep it conversational, not marketing copy.
 - End with a single, low-pressure question asking whether a short conversation would be useful.
 
 Style constraints:
@@ -54,7 +54,7 @@ Output only the final email, including the subject line and signature, with no e
 
 ## Context: Why This Matters to IROs
 
-Based on background research (see `docs/investor-relations-background.md`), key pain points that make IROs receptive to outreach:
+Key pain points that make IROs receptive to outreach:
 
 1. **Investor Perception Gaps**: IROs struggle to understand what investors actually think vs. what management believes they think
 2. **Valuation Disconnect**: When stock price doesn't reflect perceived company value, IROs face pressure from leadership
@@ -62,9 +62,9 @@ Based on background research (see `docs/investor-relations-background.md`), key 
 4. **Executive Alignment**: IROs need external validation to influence C-suite messaging
 5. **Activist Risk**: Proactive perception management helps identify vulnerabilities before activists exploit them
 
-## Rivel Research Group Positioning
+## Value Proposition
 
-The emails should reflect Rivel's core value proposition (without sounding like marketing):
+The emails should reflect core IR consulting value (without sounding like marketing):
 - Investor perception research
 - Expectation management
 - Understanding gaps between management intent and market interpretation
@@ -80,7 +80,7 @@ The emails should reflect Rivel's core value proposition (without sounding like 
 - **Sender first name**: For the email sign-off
 
 ### User Settings (configurable)
-- **Firm name**: The consultant's firm (e.g., "Rivel Research Group")
+- **Firm name**: The consultant's firm
 - **Preferred news sources**: User can configure which sources to prioritize
 
 ### Preferred News Sources (defaults)

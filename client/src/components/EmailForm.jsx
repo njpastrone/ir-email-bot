@@ -4,7 +4,11 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
   const [formData, setFormData] = useState({
     companyName: '',
     contactName: '',
-    senderName: ''
+    senderName: '',
+    firmName: '',
+    tone: 'conversational',
+    contactRole: 'iro',
+    length: 'standard'
   });
 
   const handleChange = (e) => {
@@ -15,7 +19,6 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
     e.preventDefault();
     onGenerate({
       ...formData,
-      firmName: settings.firmName,
       preferredSources: settings.preferredSources
     });
   };
@@ -23,10 +26,10 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
   const isValid = formData.companyName && formData.contactName && formData.senderName;
 
   return (
-    <div className="card">
-      <h2>Generate Email</h2>
+    <div className="email-form">
+      <h3>Generate Email</h3>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="form-group compact">
           <label htmlFor="companyName">Company Name or Ticker</label>
           <input
             type="text"
@@ -39,7 +42,7 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
           />
         </div>
 
-        <div className="form-group">
+        <div className="form-group compact">
           <label htmlFor="contactName">Contact Name</label>
           <input
             type="text"
@@ -52,24 +55,87 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="senderName">Your First Name (for sign-off)</label>
-          <input
-            type="text"
-            id="senderName"
-            name="senderName"
-            value={formData.senderName}
+        <div className="form-row">
+          <div className="form-group compact">
+            <label htmlFor="senderName">Your First Name</label>
+            <input
+              type="text"
+              id="senderName"
+              name="senderName"
+              value={formData.senderName}
+              onChange={handleChange}
+              placeholder="e.g., Sarah"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="form-group compact">
+            <label htmlFor="firmName">Firm Name (optional)</label>
+            <input
+              type="text"
+              id="firmName"
+              name="firmName"
+              value={formData.firmName}
+              onChange={handleChange}
+              placeholder="e.g., Acme IR"
+              disabled={isLoading}
+            />
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group compact">
+            <label htmlFor="contactRole">Role</label>
+            <select
+              id="contactRole"
+              name="contactRole"
+              value={formData.contactRole}
+              onChange={handleChange}
+              disabled={isLoading}
+            >
+              <option value="iro">IRO</option>
+              <option value="ceo">CEO</option>
+              <option value="cfo">CFO</option>
+            </select>
+          </div>
+
+          <div className="form-group compact">
+            <label htmlFor="tone">Tone</label>
+            <select
+              id="tone"
+              name="tone"
+              value={formData.tone}
+              onChange={handleChange}
+              disabled={isLoading}
+            >
+              <option value="conversational">Conversational</option>
+              <option value="formal">Formal</option>
+              <option value="direct">Direct</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="form-group compact">
+          <label htmlFor="length">Length</label>
+          <select
+            id="length"
+            name="length"
+            value={formData.length}
             onChange={handleChange}
-            placeholder="e.g., Sarah"
             disabled={isLoading}
-          />
+          >
+            <option value="standard">Standard</option>
+            <option value="brief">Brief</option>
+            <option value="detailed">Detailed</option>
+          </select>
         </div>
 
         <button
           type="submit"
-          className="primary"
+          className="primary generate-btn"
           disabled={!isValid || isLoading}
         >
+          {isLoading && <span className="spinner-inline" />}
           {isLoading ? 'Generating...' : 'Generate Email'}
         </button>
       </form>
