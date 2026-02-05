@@ -66,6 +66,8 @@ Write a cold outreach email to {{contactName}} at {{companyName}}.
 {{newsContext}}
 </company_research>
 
+{{additionalContext}}
+
 <recipient_context>
 {{roleContext}}
 </recipient_context>
@@ -233,6 +235,7 @@ export async function generateEmail({
   senderName,
   firmName,
   newsContext,
+  additionalContext = '',
   tone = 'conversational',
   contactRole = 'iro',
   length = 'standard',
@@ -267,12 +270,16 @@ Generate the email now.`;
     // Use the new structured prompt (v2)
     // Replace all template variables in the structured prompt
     const firmNameClause = firmName ? ` at ${firmName}` : '';
+    const additionalContextBlock = additionalContext
+      ? `<sender_context>\nThe sender has provided additional context about what they'd like the email to focus on:\n${additionalContext}\nUse this to guide which theme you select and reference in paragraph 1.\n</sender_context>`
+      : '';
     prompt = BASE_PROMPT
       .replace(/\{\{firmNameClause\}\}/g, firmNameClause)
       .replace(/\{\{contactName\}\}/g, contactName)
       .replace(/\{\{companyName\}\}/g, companyName)
       .replace(/\{\{senderName\}\}/g, senderName)
       .replace(/\{\{newsContext\}\}/g, newsContext)
+      .replace(/\{\{additionalContext\}\}/g, additionalContextBlock)
       .replace(/\{\{roleContext\}\}/g, roleContext)
       .replace(/\{\{toneInstruction\}\}/g, toneInstruction)
       .replace(/\{\{lengthInstruction\}\}/g, lengthInstruction);

@@ -6,6 +6,7 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
     contactName: '',
     senderName: '',
     firmName: '',
+    additionalContext: '',
     tone: 'conversational',
     contactRole: 'iro',
     length: 'standard'
@@ -128,6 +129,20 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
             <option value="brief">Brief</option>
             <option value="detailed">Detailed</option>
           </select>
+        </div>
+
+        <div className="form-group compact">
+          <label htmlFor="additionalContext">Additional Context (optional)</label>
+          <textarea
+            id="additionalContext"
+            name="additionalContext"
+            value={formData.additionalContext}
+            onChange={handleChange}
+            placeholder="e.g., 'Focus on the recent CEO transition' or 'Reference the supply chain issues'"
+            disabled={isLoading}
+            rows={3}
+          />
+          <span className="form-helper">Guide which news angle the email references</span>
         </div>
 
         <button
