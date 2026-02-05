@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Signal is a news-driven email drafting tool for IR (Investor Relations) consultants to prospect IROs (Investor Relations Officers) and senior executives at publicly traded companies. The tool fetches recent news about a target company, generates an AI-powered summary of key themes, and drafts personalized cold outreach emails that reference specific coverage.
+Signal is a news-driven email drafting tool for IR (Investor Relations) consultants to prospect IROs (Investor Relations Officers) and senior executives at publicly traded companies. The tool fetches recent news about a target company, generates an AI-powered summary of key themes, and drafts personalized outreach emails (cold or warm) that reference specific coverage.
 
 ## Target Users
 
@@ -22,7 +22,7 @@ Signal is a news-driven email drafting tool for IR (Investor Relations) consulta
 4. System fetches recent news and generates:
    - AI summary of key investor themes ("What's Happening")
    - Identification of the cited article referenced in the email
-   - Draft cold outreach email with separate subject and body
+   - Draft outreach email with separate subject and body
 5. User reviews/edits, optionally refines with natural language instructions, and copies to their email client
 
 ### Output Display
@@ -57,6 +57,7 @@ The email prompt uses a structured format with XML tags:
 <context>Why personalized emails work better</context>
 <task>Write email to [contact] at [company]</task>
 <company_research>[News articles]</company_research>
+<relationship_context>[Cold vs. warm outreach guidance]</relationship_context>
 <recipient_context>[Role-specific guidance]</recipient_context>
 <email_structure>Pain → Medicine → CTA format</email_structure>
 <tone_guidance>Humble, conversational approach</tone_guidance>
@@ -153,6 +154,10 @@ Example: "Recent coverage focuses on margin pressures amid rising input costs an
 - `brief`: 60-80 words
 - `standard` (default): 80-120 words
 - `detailed`: 120-150 words
+
+### Relationship Options
+- `cold` (default): First-time outreach — leads directly with the news reference, no prior relationship assumed
+- `warm`: Existing relationship — opens with a brief warm note (e.g., "Hope you've been well"), then transitions to the news reference; CTA is framed as reconnecting
 
 ---
 

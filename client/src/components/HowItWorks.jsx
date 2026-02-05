@@ -126,7 +126,7 @@ export default function HowItWorks({ variant = 'subtle' }) {
                       <h3>Email Generation</h3>
                       <p>
                         Using a carefully crafted prompt, Claude generates a personalized
-                        cold outreach email that references the company's current situation
+                        outreach email that references the company's current situation
                         and positions your firm's IR services as a solution. The email is
                         designed to sound natural, not AI-generated.
                       </p>
@@ -149,7 +149,7 @@ export default function HowItWorks({ variant = 'subtle' }) {
                         <pre>{promptInfo.basePrompt}</pre>
                       </div>
                       <p className="prompt-note">
-                        Additional modifiers for tone, role, and length are appended based
+                        Additional modifiers for tone, role, length, and relationship are appended based
                         on your selections.
                       </p>
                     </>
@@ -202,6 +202,16 @@ export default function HowItWorks({ variant = 'subtle' }) {
                       <h4>Length Options</h4>
                       <div className="modifier-list">
                         {Object.entries(promptInfo.lengthModifiers).map(([key, value]) => (
+                          <div key={key} className="modifier-item">
+                            <strong>{key}</strong>
+                            <span>{value}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <h4>Relationship Options</h4>
+                      <div className="modifier-list">
+                        {Object.entries(promptInfo.relationshipModifiers).map(([key, value]) => (
                           <div key={key} className="modifier-item">
                             <strong>{key}</strong>
                             <span>{value}</span>
