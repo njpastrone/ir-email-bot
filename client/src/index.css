@@ -703,6 +703,62 @@ a.cited-article-title:hover {
   background: white;
 }
 
+/* Refine bar */
+.refine-bar {
+  padding: 0.875rem 1.25rem 1.25rem;
+  border-top: 1px solid #e0e7ff;
+}
+
+.refine-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.refine-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background: white;
+}
+
+.refine-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.refine-input::placeholder {
+  color: #94a3b8;
+}
+
+.refine-input:disabled {
+  opacity: 0.5;
+}
+
+.refine-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+
+.refine-error {
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  color: #dc2626;
+}
+
+.email-textarea.refining,
+.subject-input.refining {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .success-toast {
   position: fixed;
   bottom: 1.5rem;
@@ -998,5 +1054,9 @@ a.cited-article-title:hover {
   .pipeline-step {
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .refine-input-row {
+    flex-direction: column;
   }
 }

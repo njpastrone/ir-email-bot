@@ -296,13 +296,15 @@ Generate the email now.`;
     const parsed = JSON.parse(rawText);
     return {
       email: parsed.email,
-      citedArticleIndex: parsed.citedArticleIndex
+      citedArticleIndex: parsed.citedArticleIndex,
+      prompt
     };
   } catch {
     // Fallback: return raw text as email (legacy format or parsing failure)
     return {
       email: rawText,
-      citedArticleIndex: null
+      citedArticleIndex: null,
+      prompt
     };
   }
 }
@@ -349,4 +351,26 @@ Example: "Recent coverage focuses on margin pressures amid rising input costs an
   });
 
   return response.content[0].text.trim();
+}
+
+export async function refineEmail({ messages, instruction }) {
+  const refinementMessage = {
+    role: 'user',
+    content: `Revise the email based on this instruction: ${instruction}\n\nReturn ONLY the complete revised email (including Subject: line). No JSON, no explanation.`
+  };
+
+  const allMessages = [...messages, refinementMessage];
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 1024,
+    messages: allMessages
+  });
+
+  const revisedEmail = response.content[0].text.trim();
+
+  return {
+    email: revisedEmail,
+    updatedMessages: [...allMessages, { role: 'assistant', content: revisedEmail }]
+  };
 }

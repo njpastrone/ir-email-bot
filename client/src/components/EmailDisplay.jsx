@@ -26,17 +26,19 @@ function parseEmail(emailText) {
   return { subject, body };
 }
 
-export default function EmailDisplay({ email, meta }) {
+export default function EmailDisplay({ email, meta, onRefine, isRefining, refineError, canRefine }) {
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [copied, setCopied] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [showSources, setShowSources] = useState(false);
+  const [refineInstruction, setRefineInstruction] = useState('');
 
   useEffect(() => {
     const parsed = parseEmail(email);
     setSubject(parsed.subject);
     setBody(parsed.body);
+    setRefineInstruction('');
   }, [email]);
 
   const handleCopy = async () => {
@@ -47,6 +49,13 @@ export default function EmailDisplay({ email, meta }) {
     } catch (err) {
       console.error('Failed to copy:', err);
     }
+  };
+
+  const handleRefineSubmit = () => {
+    if (!refineInstruction.trim() || isRefining) return;
+    const currentEmailText = `Subject: ${subject}\n\n${body}`;
+    onRefine(refineInstruction.trim(), currentEmailText);
+    setRefineInstruction('');
   };
 
   const formatDate = (dateString) => {
@@ -189,17 +198,50 @@ export default function EmailDisplay({ email, meta }) {
         <div className="email-body">
           <input
             type="text"
-            className="subject-input"
+            className={`subject-input${isRefining ? ' refining' : ''}`}
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             placeholder="Subject"
+            disabled={isRefining}
           />
           <textarea
-            className="email-textarea"
+            className={`email-textarea${isRefining ? ' refining' : ''}`}
             value={body}
             onChange={(e) => setBody(e.target.value)}
+            disabled={isRefining}
           />
         </div>
+
+        {canRefine && (
+          <div className="refine-bar">
+            <div className="refine-input-row">
+              <input
+                type="text"
+                className="refine-input"
+                value={refineInstruction}
+                onChange={(e) => setRefineInstruction(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleRefineSubmit()}
+                placeholder="Refine: e.g., 'make it shorter' or 'more formal tone'"
+                disabled={isRefining}
+              />
+              <button
+                className="refine-btn primary"
+                onClick={handleRefineSubmit}
+                disabled={isRefining || !refineInstruction.trim()}
+              >
+                {isRefining ? (
+                  <>
+                    <span className="spinner-inline" />
+                    Refining...
+                  </>
+                ) : (
+                  'Refine'
+                )}
+              </button>
+            </div>
+            {refineError && <p className="refine-error">{refineError}</p>}
+          </div>
+        )}
       </div>
 
       {copied && <div className="success-toast">Email copied to clipboard</div>}

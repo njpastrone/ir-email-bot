@@ -27,6 +27,9 @@ function App() {
   const [meta, setMeta] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [conversationMessages, setConversationMessages] = useState(null);
+  const [isRefining, setIsRefining] = useState(false);
+  const [refineError, setRefineError] = useState('');
 
   useEffect(() => {
     localStorage.setItem('ir-email-bot-settings', JSON.stringify(settings));
@@ -37,6 +40,8 @@ function App() {
     setError('');
     setEmail('');
     setMeta(null);
+    setConversationMessages(null);
+    setRefineError('');
 
     try {
       const response = await fetch('/api/generate-email', {
@@ -52,6 +57,7 @@ function App() {
       }
 
       setEmail(data.email);
+      setConversationMessages(data.messages);
       setMeta({
         articlesFound: data.articlesFound,
         sources: data.sources,
@@ -64,6 +70,38 @@ function App() {
       setError(err.message);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleRefine = async (instruction, currentEmailText) => {
+    setIsRefining(true);
+    setRefineError('');
+
+    try {
+      // If user manually edited the email, update the last assistant message
+      const messages = [...conversationMessages];
+      if (currentEmailText !== messages[messages.length - 1].content) {
+        messages[messages.length - 1] = { role: 'assistant', content: currentEmailText };
+      }
+
+      const response = await fetch('/api/refine-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages, instruction })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to refine email');
+      }
+
+      setEmail(data.email);
+      setConversationMessages(data.messages);
+    } catch (err) {
+      setRefineError(err.message);
+    } finally {
+      setIsRefining(false);
     }
   };
 
@@ -94,7 +132,16 @@ function App() {
     }
 
     if (email) {
-      return <EmailDisplay email={email} meta={meta} />;
+      return (
+        <EmailDisplay
+          email={email}
+          meta={meta}
+          onRefine={handleRefine}
+          isRefining={isRefining}
+          refineError={refineError}
+          canRefine={!!conversationMessages}
+        />
+      );
     }
 
     return (

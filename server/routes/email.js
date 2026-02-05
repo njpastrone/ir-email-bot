@@ -1,6 +1,6 @@
 import express from 'express';
 import { fetchCompanyNews, formatNewsForPrompt } from '../services/news.js';
-import { generateEmail, generateEmailComparison, generateNewsSummary, getPromptInfo } from '../services/claude.js';
+import { generateEmail, generateEmailComparison, generateNewsSummary, getPromptInfo, refineEmail } from '../services/claude.js';
 
 const router = express.Router();
 
@@ -68,7 +68,7 @@ router.post('/generate-email', async (req, res) => {
 
     // Determine cited article
     let citedArticle = null;
-    const { email, citedArticleIndex } = emailResult;
+    const { email, citedArticleIndex, prompt: originalPrompt } = emailResult;
 
     // Try using the index from Claude's response
     if (citedArticleIndex && citedArticleIndex >= 1 && citedArticleIndex <= formattedArticles.length) {
@@ -108,12 +108,48 @@ router.post('/generate-email', async (req, res) => {
       promptVersion: useLegacyPrompt ? 'v1-legacy' : 'v2-structured',
       articlesFound: articles.length,
       sources: articles.map(a => a.source),
-      articles: formattedArticles
+      articles: formattedArticles,
+      messages: [
+        { role: 'user', content: originalPrompt },
+        { role: 'assistant', content: email }
+      ]
     });
   } catch (error) {
     console.error('Error generating email:', error);
     res.status(500).json({
       error: 'Failed to generate email',
+      details: error.message
+    });
+  }
+});
+
+// Refine an existing email with a new instruction
+router.post('/refine-email', async (req, res) => {
+  try {
+    const { messages, instruction } = req.body;
+
+    if (!messages || !Array.isArray(messages) || messages.length < 2) {
+      return res.status(400).json({
+        error: 'Missing or invalid messages array (must contain at least 2 entries)'
+      });
+    }
+
+    if (!instruction || !instruction.trim()) {
+      return res.status(400).json({
+        error: 'Missing refinement instruction'
+      });
+    }
+
+    const result = await refineEmail({ messages, instruction: instruction.trim() });
+
+    res.json({
+      email: result.email,
+      messages: result.updatedMessages
+    });
+  } catch (error) {
+    console.error('Error refining email:', error);
+    res.status(500).json({
+      error: 'Failed to refine email',
       details: error.message
     });
   }
