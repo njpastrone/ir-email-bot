@@ -149,7 +149,7 @@ export default function HowItWorks({ variant = 'subtle' }) {
                         <pre>{promptInfo.basePrompt}</pre>
                       </div>
                       <p className="prompt-note">
-                        Additional modifiers for tone, role, length, and relationship are appended based
+                        Additional modifiers for tone, role, length, relationship, and structure are appended based
                         on your selections.
                       </p>
                     </>
@@ -215,6 +215,16 @@ export default function HowItWorks({ variant = 'subtle' }) {
                           <div key={key} className="modifier-item">
                             <strong>{key}</strong>
                             <span>{value}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <h4>Structure Options</h4>
+                      <div className="modifier-list">
+                        {promptInfo.structureModifiers && Object.entries(promptInfo.structureModifiers).map(([key, value]) => (
+                          <div key={key} className="modifier-item">
+                            <strong>{key}</strong>
+                            <span>{value.emailStructure}</span>
                           </div>
                         ))}
                       </div>
