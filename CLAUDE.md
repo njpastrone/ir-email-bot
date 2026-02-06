@@ -87,11 +87,11 @@ The `<email_structure>` and `<examples>` sections are dynamic, swapped based on 
 - Always include "this week or next" or similar
 - Can add reciprocity (e.g., "happy to share what we typically see and hear your perspective")
 
-#### Intro-First: Introduction → Value → CTA
+#### Intro-First (more direct): Introduction → Value → CTA
 
 **Paragraph 1 - THE INTRODUCTION (1-2 sentences)**
-- Open with name and industry-specific team at firm (e.g., "I'm part of the healthcare team here at [firm]")
-- Industry team name is inferred by the model from the company's industry — no new input field
+- Open with name and team at firm (e.g., "I'm part of the IR advisory team here at [firm]")
+- Team name is configurable via a "Team Name" input field (defaults to "IR advisory team")
 
 **Paragraph 2 - THE VALUE (2-3 sentences)**
 - Connect team's work to challenges relevant to the recipient's role and industry
@@ -119,17 +119,17 @@ Sarah
 
 ### Example Output (Intro-First)
 ```
-Subject: Introduction from Orion's healthcare team
+Subject: Introduction from Orion's IR advisory team
 
 Hi Maria,
 
-My name is Sarah, and I'm part of the healthcare team here at Orion Advisory.
+My name is Sarah, and I'm part of the IR advisory team here at Orion Advisory.
 
 We work with IR teams in the healthcare space to understand what investors are actually focused on and where the messaging might be landing differently than intended. My team specifically focuses on priorities related to perception gaps, analyst sentiment, and positioning around key catalysts.
 
 Do you have availability for an introduction this week? Let me know when works best and I'll send an invite.
 
-Looking forward to it,
+Thanks in advance,
 Sarah
 ```
 
@@ -194,8 +194,13 @@ Example: "Recent coverage focuses on margin pressures amid rising input costs an
 - `warm`: Existing relationship — opens with a brief warm note (e.g., "Hope you've been well"), then transitions to the news reference; CTA is framed as reconnecting
 
 ### Structure Options
-- `news-first` (default): Opens with a news reference (Pain → Insight → CTA). Uses 3 few-shot examples with the Henkel-style insight-driven P2 as the preferred style.
-- `intro-first`: Opens with a self-introduction and industry team positioning (Introduction → Value → CTA). Uses 2 few-shot examples. Structure is independent from Relationship, giving 4 possible combinations.
+- `news-first` (default): Opens with a news reference (Pain → Insight → CTA). Signs off with "Best,". Uses 3 few-shot examples with the Henkel-style insight-driven P2 as the preferred style.
+- `intro-first` (labeled "more direct"): Opens with a self-introduction and team positioning (Introduction → Value → CTA). Signs off with "Thanks in advance,". Uses 2 few-shot examples. Structure is independent from Relationship, giving 4 possible combinations.
+
+### Team Name
+- Defaults to "IR advisory team"
+- Configurable input field that appears when intro-first structure is selected
+- Used in the opening: "I'm part of the [team name] here at [firm]"
 
 ### Source Preference
 When choosing which article to cite, the prompt favors coverage from the Wall Street Journal, Bloomberg, or Financial Times. Other sources are used only when these three have no relevant coverage.
