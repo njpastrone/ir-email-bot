@@ -33,14 +33,11 @@ router.post('/generate-email', async (req, res) => {
     } = req.body;
 
     // Validate required fields
-    if (!companyName || !contactName || !senderName) {
+    if (!companyName || !contactName || !senderName || !firmName) {
       return res.status(400).json({
-        error: 'Missing required fields: companyName, contactName, and senderName are required'
+        error: 'Missing required fields: companyName, contactName, senderName, and firmName are required'
       });
     }
-
-    // Use default firm name if not provided
-    const firm = firmName || '';
 
     // Fetch recent news about the company
     const articles = await fetchCompanyNews(companyName, preferredSources);
@@ -52,7 +49,7 @@ router.post('/generate-email', async (req, res) => {
         companyName,
         contactName,
         senderName,
-        firmName: firm,
+        firmName,
         newsContext,
         additionalContext: additionalContext || '',
         tone: tone || 'conversational',

@@ -119,11 +119,11 @@ Sarah
 
 ### Example Output (Intro-First)
 ```
-Subject: Introduction from Orion's IR advisory team
+Subject: Introduction from Crestwood's IR advisory team
 
 Hi Maria,
 
-My name is Sarah, and I'm part of the IR advisory team here at Orion Advisory.
+My name is Sarah, and I'm part of the IR advisory team here at Crestwood Partners.
 
 We work with IR teams in the healthcare space to understand what investors are actually focused on and where the messaging might be landing differently than intended. My team specifically focuses on priorities related to perception gaps, analyst sentiment, and positioning around key catalysts.
 
@@ -160,7 +160,7 @@ Example: "Recent coverage focuses on margin pressures amid rising input costs an
 ## Configuration Options
 
 ### User Settings (configurable in sidebar)
-- **Firm name**: Optional - consultant's firm name (included in email persona if provided)
+- **Firm name**: Required - consultant's firm name (included in email persona and intro-first structure)
 - **Preferred news sources**: Customizable list of sources to prioritize
 
 ### Default News Sources

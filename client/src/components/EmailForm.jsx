@@ -27,7 +27,7 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
     });
   };
 
-  const isValid = formData.companyName && formData.contactName && formData.senderName;
+  const isValid = formData.companyName && formData.contactName && formData.senderName && formData.firmName;
 
   return (
     <div className="email-form">
@@ -74,7 +74,7 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
           </div>
 
           <div className="form-group compact">
-            <label htmlFor="firmName">Firm Name (optional)</label>
+            <label htmlFor="firmName">Firm Name</label>
             <input
               type="text"
               id="firmName"

@@ -259,11 +259,11 @@ Rachel
 const INTRO_FIRST_EXAMPLES = `<example>
 <scenario>Healthcare company, IRO recipient, cold intro-first outreach</scenario>
 <output>
-Subject: Introduction from Orion's IR advisory team
+Subject: Introduction from Crestwood's IR advisory team
 
 Hi Maria,
 
-My name is Sarah, and I'm part of the IR advisory team here at Orion Advisory.
+My name is Sarah, and I'm part of the IR advisory team here at Crestwood Partners.
 
 We work with IR teams in the healthcare space to understand what investors are actually focused on and where the messaging might be landing differently than intended. My team specifically focuses on priorities related to perception gaps, analyst sentiment, and positioning around key catalysts.
 
@@ -277,11 +277,11 @@ Sarah
 <example>
 <scenario>Industrial company, CFO recipient, existing relationship intro-first outreach</scenario>
 <output>
-Subject: Introduction from your Orion advisory team
+Subject: Introduction from your Crestwood advisory team
 
 Hi James,
 
-My name is Michael, and I'm part of Orion's IR advisory team responsible for supporting Vertex Industries. Given your role, I'm looking to introduce our team and get aligned with your priorities going forward.
+My name is Michael, and I'm part of Crestwood's IR advisory team responsible for supporting Vertex Industries. Given your role, I'm looking to introduce our team and get aligned with your priorities going forward.
 
 My team specifically works on priorities related to investor perception, expectation management, and narrative positioning. We work with clients to get clarity on what investors are actually focused on and where there might be gaps worth addressing.
 
