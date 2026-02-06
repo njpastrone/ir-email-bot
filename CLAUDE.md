@@ -59,43 +59,77 @@ The email prompt uses a structured format with XML tags:
 <company_research>[News articles]</company_research>
 <relationship_context>[Cold vs. warm outreach guidance]</relationship_context>
 <recipient_context>[Role-specific guidance]</recipient_context>
-<email_structure>Pain → Medicine → CTA format</email_structure>
+<email_structure>Dynamic: news-first (Pain → Insight → CTA) or intro-first (Introduction → Value → CTA)</email_structure>
 <tone_guidance>Humble, conversational approach</tone_guidance>
 <style>Writing style instructions</style>
 <examples>Few-shot examples</examples>
 <output_format>JSON with email and citedArticleIndex</output_format>
 ```
 
-### Email Structure: Pain → Medicine → CTA
+### Email Structures
+
+The `<email_structure>` and `<examples>` sections are dynamic, swapped based on the selected structure setting. There are two structures:
+
+#### News-First (default): Pain → Insight → CTA
 
 **Paragraph 1 - THE PAIN (1-2 sentences)**
 - Reference the news source and general topic
 - Acknowledge the type of challenge they're facing
 - Stay humble and empathetic, not presumptuous
 
-**Paragraph 2 - THE MEDICINE (2-3 sentences)**
-- Show you've helped others in similar situations
-- Keep the description conversational and general
-- Connect to the type of problem, not specific details
+**Paragraph 2 - THE INSIGHT (2-3 sentences)**
+- Describe the universal challenge companies in their situation face (preferred Henkel-style: "about them")
+- Focus on the perception gap between what management intends to communicate and what investors hear
+- Acceptable alternative: reference having helped others, but keep center of gravity on recipient's challenge
 
 **Paragraph 3 - THE CALL TO ACTION (1-2 sentences)**
 - Propose a specific next step with timeframe
 - Always include "this week or next" or similar
-- Keep the ask simple and direct
+- Can add reciprocity (e.g., "happy to share what we typically see and hear your perspective")
 
-### Example Output
+#### Intro-First: Introduction → Value → CTA
+
+**Paragraph 1 - THE INTRODUCTION (1-2 sentences)**
+- Open with name and industry-specific team at firm (e.g., "I'm part of the healthcare team here at [firm]")
+- Industry team name is inferred by the model from the company's industry — no new input field
+
+**Paragraph 2 - THE VALUE (2-3 sentences)**
+- Connect team's work to challenges relevant to the recipient's role and industry
+- Describe outcomes (e.g., "getting clarity on investor sentiment") rather than services
+
+**Paragraph 3 - THE CALL TO ACTION (1-2 sentences)**
+- Ask for calendar time with a specific timeframe
+- Keep logistically simple (e.g., "let me know when works best and I'll send an invite")
+
+### Example Output (News-First)
 ```
-Subject: Quick question about analyst sentiment
+Subject: Quick thought about the Crestline acquisition
 
-Hi James,
+Hi Leslie,
 
-I saw that Journal piece on Meridian's margin outlook. That's always a tricky narrative to manage.
+I saw that Journal piece on the Crestline acquisition. That's a big strategic bet that probably has investors asking a lot of questions about integration and synergies.
 
-We've helped other healthcare CFOs in similar spots get clarity on what investors are actually focused on versus what's landing. Often there's a gap worth addressing.
+Many management teams in the middle of an M&A story find that what they intend to communicate and what investors actually hear aren't always the same. When you can clearly see where that gap exists, it becomes much easier to address the questions, concerns, and priorities that are really driving investor behavior.
 
-Do you have 15 minutes later this week or next to discuss?
+Happy to share what we typically see and hear your perspective. Do you have 15 minutes later this week or next to discuss?
 
 Best,
+Sarah
+```
+
+### Example Output (Intro-First)
+```
+Subject: Introduction from Orion's healthcare team
+
+Hi Maria,
+
+My name is Sarah, and I'm part of the healthcare team here at Orion Advisory.
+
+We work with IR teams in the healthcare space to understand what investors are actually focused on and where the messaging might be landing differently than intended. My team specifically focuses on priorities related to perception gaps, analyst sentiment, and positioning around key catalysts.
+
+Do you have availability for an introduction this week? Let me know when works best and I'll send an invite.
+
+Looking forward to it,
 Sarah
 ```
 
@@ -158,6 +192,13 @@ Example: "Recent coverage focuses on margin pressures amid rising input costs an
 ### Relationship Options
 - `cold` (default): First-time outreach — leads directly with the news reference, no prior relationship assumed
 - `warm`: Existing relationship — opens with a brief warm note (e.g., "Hope you've been well"), then transitions to the news reference; CTA is framed as reconnecting
+
+### Structure Options
+- `news-first` (default): Opens with a news reference (Pain → Insight → CTA). Uses 3 few-shot examples with the Henkel-style insight-driven P2 as the preferred style.
+- `intro-first`: Opens with a self-introduction and industry team positioning (Introduction → Value → CTA). Uses 2 few-shot examples. Structure is independent from Relationship, giving 4 possible combinations.
+
+### Source Preference
+When choosing which article to cite, the prompt favors coverage from the Wall Street Journal, Bloomberg, or Financial Times. Other sources are used only when these three have no relevant coverage.
 
 ---
 
