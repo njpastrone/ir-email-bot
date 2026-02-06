@@ -59,7 +59,11 @@ Write an email to {{contactName}} at {{companyName}}.
 1. Review the company research below
 2. Identify 2-3 valuation-relevant themes investors are focused on
 3. Select the single theme most relevant to someone in the recipient's role
-4. Write the email naturally incorporating that theme
+4. When choosing which article to cite, prefer coverage from the Wall Street
+   Journal, Bloomberg, or Financial Times because referencing a well-respected
+   financial publication adds credibility. Use other sources only when these
+   three have no relevant coverage.
+5. Write the email naturally incorporating that theme
 </task>
 
 <company_research>
@@ -77,35 +81,18 @@ Write an email to {{contactName}} at {{companyName}}.
 </recipient_context>
 
 <email_structure>
-Paragraph 1 - THE PAIN (1-2 sentences):
-Reference that you saw the news (name the source and general topic), then
-acknowledge the TYPE of challenge they're facing. Stay humble and conversational.
-You understand the general situation, but you're not pretending to know their
-internal details. Example: "I saw that Journal piece on the margin questions.
-That's always a tough narrative to manage." Keep it light and empathetic, not
-detailed or presumptuous.
-
-Paragraph 2 - THE MEDICINE (2-3 sentences):
-Show we've helped others in similar situations, then keep the description of
-what we do conversational and general. Connect to the type of problem, not
-specific metrics or details you couldn't know. Example: "We've helped other
-healthcare companies navigate similar situations, basically getting clarity on
-what investors are actually focused on versus what's landing from management.
-Often there's a gap that's addressable once you can see it." Stay conversational.
-
-Paragraph 3 - THE CALL TO ACTION (1-2 sentences):
-Propose a specific next step with a timeframe. Always include "this week or next"
-or similar. Keep the ask simple and direct: "Do you have 15 minutes later this
-week or next to discuss?" or "Would a quick call this week or next be helpful?"
-Avoid awkward phrases like "compare notes" or "swap perspectives."
+{{emailStructure}}
 </email_structure>
 
 <tone_guidance>
-The email should sound like a quick note from someone who saw the news and thought
-of them, not a detailed analysis. You're not trying to prove how much you know.
-You're showing you understand the type of challenge and offering to help.
-Stay humble. Stay conversational. If it sounds like a consultant showing off
-research, you've gone too far.
+The email should sound like a quick note from a busy professional, written between
+meetings. You're reaching out because something made this relevant right now.
+Stay humble and conversational. The recipient should feel this email was written
+specifically for them, prompted by something real.
+
+If the email reads like a consultant demonstrating expertise or a salesperson
+building a case, rewrite it until it sounds like a peer reaching out with a
+genuine observation or a straightforward introduction.
 </tone_guidance>
 
 <style>
@@ -118,59 +105,7 @@ Match the rhythm of natural speech, with occasional fragments for emphasis.
 </style>
 
 <examples>
-<example>
-<scenario>Healthcare company, CFO recipient, margin pressure theme</scenario>
-<output>
-Subject: Quick question about analyst sentiment
-
-Hi James,
-
-I saw that Journal piece on Meridian's margin outlook. That's always a tricky narrative to manage.
-
-We've helped other healthcare CFOs in similar spots get clarity on what investors are actually focused on versus what's landing. Often there's a gap worth addressing.
-
-Do you have 15 minutes later this week or next to discuss?
-
-Best,
-Sarah
-</output>
-</example>
-
-<example>
-<scenario>Logistics company, IRO recipient, concentration risk theme</scenario>
-<output>
-Subject: Investor perception question
-
-Hi Maria,
-
-I came across that Bloomberg piece on Vertex and the customer concentration question. I imagine that's a frustrating narrative when there's more to the story.
-
-We've worked with other IR teams dealing with similar concerns, helping them understand what's actually driving investor sentiment and where the messaging might be missing. Sometimes it's a smaller fix than you'd expect.
-
-Would a quick call this week or next be helpful?
-
-Best,
-Michael
-</output>
-</example>
-
-<example>
-<scenario>Tech company, CEO recipient, growth slowdown theme</scenario>
-<output>
-Subject: Quick thought on the narrative
-
-Hi David,
-
-I noticed that Reuters piece on Nexus and the growth questions. Shifting the narrative from hypergrowth to sustainable growth is always a tough one.
-
-We've helped other tech CEOs navigate that transition, getting clarity on what investors need to hear. Happy to share what's worked.
-
-Are you free for a quick call later this week or next?
-
-Best,
-Rachel
-</output>
-</example>
+{{examples}}
 </examples>
 
 <output_format>
@@ -224,6 +159,150 @@ After the "Hi [Name]," greeting, open paragraph 1 with a brief warm note (e.g., 
 For paragraph 3, frame the CTA as reconnecting: "Would love to catch up" or "Happy to reconnect over a quick call this week or next." The ask should feel natural between people who already know each other.`
 };
 
+const NEWS_FIRST_STRUCTURE = `Paragraph 1 - THE PAIN (1-2 sentences):
+Reference that you saw the news (name the source and general topic), then
+acknowledge the TYPE of challenge they're facing. Stay humble and conversational.
+You understand the general situation, but you're reaching out as a peer who
+noticed something relevant, not as someone pretending to know their internal details.
+
+Paragraph 2 - THE INSIGHT (2-3 sentences):
+Describe the universal challenge that companies in their situation face. Frame it
+as an observation about their world, because recipients engage when they recognize
+their own experience described back to them. The reader should feel "that's exactly
+my situation."
+
+Focus on the gap between what management intends to communicate and what investors
+actually hear. This perception gap is the core insight, and naming it as a universal
+pattern is more compelling than listing credentials.
+
+As an acceptable alternative, you may reference having helped others in similar
+situations, but keep the center of gravity on the recipient's challenge.
+
+Paragraph 3 - THE CALL TO ACTION (1-2 sentences):
+Propose a specific next step with a timeframe. Include "this week or next" or
+similar. Keep the ask simple and direct. You can add reciprocity (e.g., "happy to
+share what we typically see and hear your perspective") because a two-way
+conversation is easier to say yes to than a one-way pitch.`;
+
+const INTRO_FIRST_STRUCTURE = `Paragraph 1 - THE INTRODUCTION (1-2 sentences):
+Open with your name and your team at your firm. Reference the recipient's industry
+(e.g., "I'm part of the [industry] team here at [firm]") because industry-specific
+positioning signals relevance over generic outreach. Busy executives want to know
+immediately who you are and why you're reaching out.
+
+Paragraph 2 - THE VALUE (2-3 sentences):
+Connect what your team works on to challenges relevant to the recipient's role and
+industry. Describe outcomes (e.g., "getting clarity on investor sentiment") rather
+than services (e.g., "we conduct perception studies"), because executives care about
+what you solve, not what you call it. Reference specific pain points tied to their
+role.
+
+Paragraph 3 - THE CALL TO ACTION (1-2 sentences):
+Ask for time on their calendar with a specific timeframe ("this week" or "later this
+week"). Keep the ask direct and logistically simple. Suggesting "let me know when
+works best and I'll send an invite" removes friction and makes it easy to say yes.`;
+
+const NEWS_FIRST_EXAMPLES = `<example>
+<scenario>Industrial company, Head of IR, M&A acquisition theme (PREFERRED STYLE — insight-driven, about them)</scenario>
+<output>
+Subject: Quick thought about the Crestline acquisition
+
+Hi Leslie,
+
+I saw that Journal piece on the Crestline acquisition. That's a big strategic bet that probably has investors asking a lot of questions about integration and synergies.
+
+Many management teams in the middle of an M&A story find that what they intend to communicate and what investors actually hear aren't always the same. When you can clearly see where that gap exists, it becomes much easier to address the questions, concerns, and priorities that are really driving investor behavior.
+
+Happy to share what we typically see and hear your perspective. Do you have 15 minutes later this week or next to discuss?
+
+Best,
+Sarah
+</output>
+</example>
+
+<example>
+<scenario>Consumer company, Head of IR, leadership transition theme (acceptable alternative style)</scenario>
+<output>
+Subject: CFO transition messaging
+
+Hi James,
+
+I saw that Journal piece on your CFO transition. Leadership changes always create extra narrative complexity during an already challenging time.
+
+We've helped other IR teams manage similar situations, getting clarity on what investors are actually focused on versus what's coming through in the messaging. Often there's a disconnect that's addressable once you can see it clearly.
+
+Do you have 15 minutes later this week or next to discuss?
+
+Best,
+Michael
+</output>
+</example>
+
+<example>
+<scenario>Tech company, CFO recipient, restructuring theme (acceptable alternative style)</scenario>
+<output>
+Subject: Quick question on restructuring messaging
+
+Hi Dan,
+
+I saw that Journal piece on Apex's restructuring and headcount reduction. Those cost discipline stories can be tough to frame positively with analysts.
+
+We've helped other CFOs navigate similar restructuring communications, getting clarity on what the Street actually wants to hear about efficiency versus what might be coming across as weakness. Often there's a messaging gap that's addressable once you see it.
+
+Do you have 15 minutes later this week or next to discuss?
+
+Best,
+Rachel
+</output>
+</example>`;
+
+const INTRO_FIRST_EXAMPLES = `<example>
+<scenario>Healthcare company, IRO recipient, cold intro-first outreach</scenario>
+<output>
+Subject: Introduction from Orion's healthcare team
+
+Hi Maria,
+
+My name is Sarah, and I'm part of the healthcare team here at Orion Advisory.
+
+We work with IR teams in the healthcare space to understand what investors are actually focused on and where the messaging might be landing differently than intended. My team specifically focuses on priorities related to perception gaps, analyst sentiment, and positioning around key catalysts.
+
+Do you have availability for an introduction this week? Let me know when works best and I'll send an invite.
+
+Looking forward to it,
+Sarah
+</output>
+</example>
+
+<example>
+<scenario>Industrial company, CFO recipient, existing relationship intro-first outreach</scenario>
+<output>
+Subject: Introduction from your Orion advisory team
+
+Hi James,
+
+My name is Michael, and I'm part of Orion's IR advisory team responsible for supporting Vertex Industries. Given your role, I'm looking to introduce our team and get aligned with your priorities going forward.
+
+My team specifically works on priorities related to investor perception, expectation management, and narrative positioning. We work with clients to get clarity on what investors are actually focused on and where there might be gaps worth addressing.
+
+I'm looking to set some time for an introduction as my team will be the main point of contact for any priorities in these areas going forward. What does your availability look like later this week?
+
+Thanks in advance,
+Michael
+</output>
+</example>`;
+
+const STRUCTURE_MODIFIERS = {
+  'news-first': {
+    emailStructure: NEWS_FIRST_STRUCTURE,
+    examples: NEWS_FIRST_EXAMPLES
+  },
+  'intro-first': {
+    emailStructure: INTRO_FIRST_STRUCTURE,
+    examples: INTRO_FIRST_EXAMPLES
+  }
+};
+
 export function getPromptInfo() {
   return {
     basePrompt: BASE_PROMPT,
@@ -232,6 +311,7 @@ export function getPromptInfo() {
     roleContext: ROLE_CONTEXT,
     lengthModifiers: LENGTH_MODIFIERS,
     relationshipModifiers: RELATIONSHIP_MODIFIERS,
+    structureModifiers: STRUCTURE_MODIFIERS,
     dynamicInputs: [
       { name: 'companyName', description: 'The target company name or ticker' },
       { name: 'contactName', description: 'The recipient\'s name' },
@@ -254,12 +334,14 @@ export async function generateEmail({
   contactRole = 'iro',
   length = 'standard',
   relationship = 'cold',
+  structure = 'news-first',
   useLegacyPrompt = false
 }) {
   const toneInstruction = TONE_MODIFIERS[tone] || TONE_MODIFIERS.conversational;
   const roleContext = ROLE_CONTEXT[contactRole] || ROLE_CONTEXT.iro;
   const lengthInstruction = LENGTH_MODIFIERS[length] || LENGTH_MODIFIERS.standard;
   const relationshipContext = RELATIONSHIP_MODIFIERS[relationship] || RELATIONSHIP_MODIFIERS.cold;
+  const structureMod = STRUCTURE_MODIFIERS[structure] || STRUCTURE_MODIFIERS['news-first'];
 
   let prompt;
 
@@ -298,6 +380,8 @@ Generate the email now.`;
       .replace(/\{\{additionalContext\}\}/g, additionalContextBlock)
       .replace(/\{\{roleContext\}\}/g, roleContext)
       .replace(/\{\{relationshipContext\}\}/g, relationshipContext)
+      .replace(/\{\{emailStructure\}\}/g, structureMod.emailStructure)
+      .replace(/\{\{examples\}\}/g, structureMod.examples)
       .replace(/\{\{toneInstruction\}\}/g, toneInstruction)
       .replace(/\{\{lengthInstruction\}\}/g, lengthInstruction);
   }

@@ -10,7 +10,8 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
     tone: 'conversational',
     contactRole: 'iro',
     length: 'standard',
-    relationship: 'cold'
+    relationship: 'cold',
+    structure: 'news-first'
   });
 
   const handleChange = (e) => {
@@ -144,6 +145,20 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
             >
               <option value="cold">Cold Outreach</option>
               <option value="warm">Existing Relationship</option>
+            </select>
+          </div>
+
+          <div className="form-group compact">
+            <label htmlFor="structure">Structure</label>
+            <select
+              id="structure"
+              name="structure"
+              value={formData.structure}
+              onChange={handleChange}
+              disabled={isLoading}
+            >
+              <option value="news-first">News-First</option>
+              <option value="intro-first">Intro-First</option>
             </select>
           </div>
         </div>
