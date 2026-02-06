@@ -11,7 +11,8 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
     contactRole: 'iro',
     length: 'standard',
     relationship: 'cold',
-    structure: 'news-first'
+    structure: 'news-first',
+    teamName: 'IR advisory team'
   });
 
   const handleChange = (e) => {
@@ -158,10 +159,26 @@ export default function EmailForm({ settings, onGenerate, isLoading }) {
               disabled={isLoading}
             >
               <option value="news-first">News-First</option>
-              <option value="intro-first">Intro-First</option>
+              <option value="intro-first">Intro-First (more direct)</option>
             </select>
           </div>
         </div>
+
+        {formData.structure === 'intro-first' && (
+          <div className="form-group compact">
+            <label htmlFor="teamName">Team Name</label>
+            <input
+              type="text"
+              id="teamName"
+              name="teamName"
+              value={formData.teamName}
+              onChange={handleChange}
+              placeholder="e.g., IR advisory team"
+              disabled={isLoading}
+            />
+            <span className="form-helper">Used in the opening: "I'm part of the [team name] here at [firm]"</span>
+          </div>
+        )}
 
         <div className="form-group compact">
           <label htmlFor="additionalContext">Additional Context (optional)</label>

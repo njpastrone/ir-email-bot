@@ -125,7 +125,7 @@ Subject: [under 50 characters, intriguing but not salesy]
 
 [Paragraph 3]
 
-Best,
+{{signOff}}
 {{senderName}}
 
 Start the JSON directly with { - no preamble.
@@ -185,10 +185,10 @@ share what we typically see and hear your perspective") because a two-way
 conversation is easier to say yes to than a one-way pitch.`;
 
 const INTRO_FIRST_STRUCTURE = `Paragraph 1 - THE INTRODUCTION (1-2 sentences):
-Open with your name and your team at your firm. Reference the recipient's industry
-(e.g., "I'm part of the [industry] team here at [firm]") because industry-specific
-positioning signals relevance over generic outreach. Busy executives want to know
-immediately who you are and why you're reaching out.
+Open with your name and your team at your firm. Use the exact team name provided:
+"I'm part of the {{teamName}} here at [firm]." Using a specific team name signals
+relevance and tells the recipient exactly who they'd be working with. Busy
+executives want to know immediately who you are and why you're reaching out.
 
 Paragraph 2 - THE VALUE (2-3 sentences):
 Connect what your team works on to challenges relevant to the recipient's role and
@@ -259,11 +259,11 @@ Rachel
 const INTRO_FIRST_EXAMPLES = `<example>
 <scenario>Healthcare company, IRO recipient, cold intro-first outreach</scenario>
 <output>
-Subject: Introduction from Orion's healthcare team
+Subject: Introduction from Orion's IR advisory team
 
 Hi Maria,
 
-My name is Sarah, and I'm part of the healthcare team here at Orion Advisory.
+My name is Sarah, and I'm part of the IR advisory team here at Orion Advisory.
 
 We work with IR teams in the healthcare space to understand what investors are actually focused on and where the messaging might be landing differently than intended. My team specifically focuses on priorities related to perception gaps, analyst sentiment, and positioning around key catalysts.
 
@@ -295,11 +295,13 @@ Michael
 const STRUCTURE_MODIFIERS = {
   'news-first': {
     emailStructure: NEWS_FIRST_STRUCTURE,
-    examples: NEWS_FIRST_EXAMPLES
+    examples: NEWS_FIRST_EXAMPLES,
+    signOff: 'Best,'
   },
   'intro-first': {
     emailStructure: INTRO_FIRST_STRUCTURE,
-    examples: INTRO_FIRST_EXAMPLES
+    examples: INTRO_FIRST_EXAMPLES,
+    signOff: 'Thanks in advance,'
   }
 };
 
@@ -335,6 +337,7 @@ export async function generateEmail({
   length = 'standard',
   relationship = 'cold',
   structure = 'news-first',
+  teamName = 'IR advisory team',
   useLegacyPrompt = false
 }) {
   const toneInstruction = TONE_MODIFIERS[tone] || TONE_MODIFIERS.conversational;
@@ -382,6 +385,8 @@ Generate the email now.`;
       .replace(/\{\{relationshipContext\}\}/g, relationshipContext)
       .replace(/\{\{emailStructure\}\}/g, structureMod.emailStructure)
       .replace(/\{\{examples\}\}/g, structureMod.examples)
+      .replace(/\{\{signOff\}\}/g, structureMod.signOff)
+      .replace(/\{\{teamName\}\}/g, teamName)
       .replace(/\{\{toneInstruction\}\}/g, toneInstruction)
       .replace(/\{\{lengthInstruction\}\}/g, lengthInstruction);
   }

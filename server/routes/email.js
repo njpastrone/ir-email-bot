@@ -28,6 +28,7 @@ router.post('/generate-email', async (req, res) => {
       length,
       relationship,
       structure,
+      teamName,
       useLegacyPrompt
     } = req.body;
 
@@ -59,6 +60,7 @@ router.post('/generate-email', async (req, res) => {
         length: length || 'standard',
         relationship: relationship || 'cold',
         structure: structure || 'news-first',
+        teamName: teamName || 'IR advisory team',
         useLegacyPrompt: useLegacyPrompt || false
       }),
       generateNewsSummary({ companyName, newsContext })
